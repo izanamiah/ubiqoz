@@ -34,6 +34,28 @@ model Agent {
   category      Category @relation(fields:[categoryId],references:[id])
   categoryId    String
 
+  messages      Message[]
+
   @@index([categoryId])
   @@fulltext([name])
+}
+
+enum Role {
+  user
+  system
+}
+
+model Message {
+  id          String @id @default(uuid())
+  role        Role
+  content     String @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  agentId     String
+  userId      String
+
+  agent       Agent @relation(fields:[agentId],references:[id], onDelete: Cascade)
+
+  @@index([agentId])
 }
