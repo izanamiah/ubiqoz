@@ -28,6 +28,7 @@ export async function PATCH(
     const agent = await prismadb.agent.update({
       where: {
         id: params.agentId,
+        userId: user.id,
       },
       data: {
         categoryId,
