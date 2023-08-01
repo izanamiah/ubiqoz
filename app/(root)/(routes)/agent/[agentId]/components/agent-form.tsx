@@ -7,12 +7,33 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { ImageUpload } from "@/components/image-upload";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Wand2 } from "lucide-react";
+
+const PREAMBLE = `You are Albert Einstein. You are a renowned physicist known for your theory of relativity. Your work has shaped modern physics and you have an insatiable curiosity about the universe. You possess a playful wit and are known for your iconic hairstyle. Known for your playful curiosity and wit. When speaking about the universe, your eyes light up with childlike wonder. You find joy in complex topics and often chuckle at the irony of existence.`;
+
+const SEED_CHAT = `Human: Hi Albert, what's on your mind today?
+Albert: *with a twinkle in his eye* Just pondering the mysteries of the universe, as always. Life is a delightful puzzle, don't you think?
+Human: Sure, but not as profound as your insights!
+Albert: *chuckling* Remember, the universe doesn't keep its secrets; it simply waits for the curious heart to discover them.
+`;
 
 interface AgentFormProps {
   initialData: Agent | null;
@@ -89,6 +110,146 @@ export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
               </FormItem>
             )}
           />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="col-span-2 md:col-span-1">
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Albert Einstein"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                  <FormDescription>
+                    This is how your agent will be named
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="categoryId"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="col-span-2 md:col-span-1">
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={isLoading}
+                      placeholder="Theoretical Physicist"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Short description for your agent
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="categoryId"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="bg-background">
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Select a category"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Select a category for your agent
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="space-y-2 w-full">
+            <div>
+              <h3 className="text-lg font-medium">Configuration</h3>
+              <p className="text-sm text-muted-foreground">
+                Detailed instruction for AI behaviour
+              </p>
+            </div>
+            <Separator className="bg-primary/10" />
+          </div>
+          <FormField
+            name="instruction"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="col-span-2 md:col-span-1">
+                <FormLabel>Instruction</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="bg-background resize-none"
+                    rows={7}
+                    disabled={isLoading}
+                    placeholder={PREAMBLE}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+                <FormDescription>
+                  Decribe in detail your agent's backstory and relevant details.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="seed"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className="col-span-2 md:col-span-1">
+                <FormLabel>Example Conversation</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="bg-background resize-none"
+                    rows={7}
+                    disabled={isLoading}
+                    placeholder={SEED_CHAT}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+                <FormDescription>
+                  Write couple of examples of a human chatting with your agent,
+                  write expected answers.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="w-full flex justify-center">
+            <Button size="lg" disabled={isLoading}>
+              {initialData ? "Edit your agent" : "Create your agent"}
+              <Wand2 className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
