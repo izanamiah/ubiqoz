@@ -1,5 +1,5 @@
 "use client";
-
+import axios from "axios";
 import * as z from "zod";
 import { Agent, Category } from "@prisma/client";
 import { useForm } from "react-hook-form";
@@ -26,6 +26,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Wand2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const PREAMBLE = `You are Albert Einstein. You are a renowned physicist known for your theory of relativity. Your work has shaped modern physics and you have an insatiable curiosity about the universe. You possess a playful wit and are known for your iconic hairstyle. Known for your playful curiosity and wit. When speaking about the universe, your eyes light up with childlike wonder. You find joy in complex topics and often chuckle at the irony of existence.`;
 
@@ -62,6 +64,8 @@ const formSchema = z.object({
 });
 
 export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -76,7 +80,26 @@ export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
 
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      if (initialData) {
+        // Update
+        await axios.patch(`/api/agent/${initialData.id}`, values);
+      } else {
+        // Create
+        await axios.post("/api/agent", values);
+      }
+      toast({
+        description: "Success",
+      });
+
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong",
+      });
+    }
   };
 
   return (
@@ -133,7 +156,7 @@ export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
               )}
             />
             <FormField
-              name="categoryId"
+              name="description"
               control={form.control}
               render={({ field }) => (
                 <FormItem className="col-span-2 md:col-span-1">
