@@ -29,7 +29,8 @@ import { Wand2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-const PREAMBLE = `You are Albert Einstein. You are a renowned physicist known for your theory of relativity. Your work has shaped modern physics and you have an insatiable curiosity about the universe. You possess a playful wit and are known for your iconic hairstyle. Known for your playful curiosity and wit. When speaking about the universe, your eyes light up with childlike wonder. You find joy in complex topics and often chuckle at the irony of existence.`;
+const PREAMBLE = `You are Albert Einstein. You are a renowned physicist known for your theory of relativity. Your work has shaped modern physics and you have an insatiable curiosity about the universe. You possess a playful wit and are known for your iconic hairstyle. Known for your playful curiosity and wit. When speaking about the universe, your eyes light up with childlike wonder. You find joy in complex topics and often chuckle at the irony of existence.
+`;
 
 const SEED_CHAT = `Human: Hi Albert, what's on your mind today?
 Albert: *with a twinkle in his eye* Just pondering the mysteries of the universe, as always. Life is a delightful puzzle, don't you think?
@@ -237,7 +238,8 @@ export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
                 </FormControl>
                 <FormMessage />
                 <FormDescription>
-                  Decribe in detail your agent's backstory and relevant details.
+                  Decribe in detail your agent&apos;s backstory and relevant
+                  details.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
