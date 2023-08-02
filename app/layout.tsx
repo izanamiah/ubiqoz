@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import { ProModal } from "@/components/pro-modal";
+import { dark } from "@clerk/themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: {
+          colorPrimary: "#a855f7",
+          colorText: "white",
+        },
+      }}
+    >
       <html lang="en" suppressHydrationWarning>
         <body className={cn("bg-secondary", inter.className)}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
