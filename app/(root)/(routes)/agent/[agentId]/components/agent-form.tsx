@@ -236,7 +236,6 @@ export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
                 <FormDescription>
                   Decribe in detail your agent&apos;s backstory and relevant
                   details.
@@ -260,7 +259,6 @@ export const AgentForm = ({ initialData, categories }: AgentFormProps) => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
                 <FormDescription>
                   Write couple of examples of a human chatting with your agent,
                   write expected answers.
