@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 import { ModeToggle } from "./mode-toggle";
 import { MobileSidebar } from "./mobile-sidebar";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { Badge } from "./ui/badge";
 
 const font = Poppins({
   weight: "600",
@@ -29,11 +30,11 @@ export const Navbar = ({ isPro }: NavbarProps) => {
         <Link href="/">
           <h1
             className={cn(
-              "hidden md:block text-xl md:text-3xl font-bold text-primary",
+              "hidden md:block text-xl md:text-3xl font-bold text-primary ",
               font.className
             )}
           >
-            Ubiqoz
+            Ubiqoz <Badge>Beta</Badge>
           </h1>
         </Link>
       </div>
