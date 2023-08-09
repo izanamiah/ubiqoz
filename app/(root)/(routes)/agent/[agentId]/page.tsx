@@ -10,7 +10,6 @@ interface AgentIdPageProps {
 
 const AgentIdPage = async ({ params }: AgentIdPageProps) => {
   const { userId } = auth();
-  //TODO: Check subscription
 
   //auth guard
   if (!userId) {
