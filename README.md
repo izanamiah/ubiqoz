@@ -1,6 +1,6 @@
 # An AI character creation and chat platform powered by LLMs with a longterm memory [LangChain, LLaMa, OpenAI, Next.js, Prisma, Postgres, PineCone]
 
-### [Live Demo](https://ubiqoz.com/)
+### [Live Demo](https://ubiqoz-izanamiah.vercel.app/)
 
 Features:
 - LangChain
